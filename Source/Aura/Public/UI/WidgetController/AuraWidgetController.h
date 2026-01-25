@@ -17,16 +17,16 @@ struct FWidgetControllerParams
 	:PlayerController(PC),PlayerState(PS),AbilitySystemComponent(ASC),AttributeSet(AS){}
 
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
-	TObjectPtr<APlayerController> PlayerController;
+	TObjectPtr<APlayerController> PlayerController=nullptr;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TObjectPtr<APlayerState> PlayerState;
+	TObjectPtr<APlayerState> PlayerState=nullptr;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
+	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent = nullptr;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TObjectPtr<UAttributeSet> AttributeSet;
+	TObjectPtr<UAttributeSet> AttributeSet = nullptr;
 };
 /**
  * 
@@ -39,6 +39,8 @@ class AURA_API UAuraWidgetController : public UObject
 public:
 	UFUNCTION(BlueprintCallable)
 	void SetWidgetControllerParams(const FWidgetControllerParams& WCParams);
+
+	virtual void BroadcastInitialValue();
 
 protected:
 	UPROPERTY(BlueprintReadOnly, Category = "WidgetController")

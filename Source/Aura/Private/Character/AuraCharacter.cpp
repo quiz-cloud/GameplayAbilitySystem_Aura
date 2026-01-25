@@ -3,6 +3,8 @@
 
 #include "Character/AuraCharacter.h"
 #include"Player/AuraPlayerState.h"
+#include"Player/AuraPlayerController.h"
+#include"UI/HUD/AuraHUD.h"
 #include "GameFrameWork/CharacterMovementComponent.h"
 
 AAuraCharacter::AAuraCharacter()
@@ -21,38 +23,42 @@ AAuraCharacter::AAuraCharacter()
 void AAuraCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
-
-	InitAbilityActorInfo();
+	UE_LOG(LogTemp, Warning, TEXT("Serve"));
+	if (GetPlayerState<AAuraPlayerState>())
+	{
+		InitAbilityActorInfo();
+	}
+	
 }
 
 //Initial Ability Actor Info for client
 void AAuraCharacter::OnRep_PlayerState()
 {
 	Super::OnRep_PlayerState();
+	UE_LOG(LogTemp, Warning, TEXT("Client"));
+	if (GetPlayerState<AAuraPlayerState>())
+	{
+		InitAbilityActorInfo();
+	}
 
-	InitAbilityActorInfo();
+	
 }
 
 void AAuraCharacter::InitAbilityActorInfo()
 {
-	AAuraPlayerState* AuraPS = GetPlayerState<AAuraPlayerState>();
-	if (!AuraPS)                 // 先别炸，等一会
-	{
-		// 日志+定时器或下一帧再试
-		UE_LOG(LogTemp, Warning, TEXT("PlayerState not ready yet, retrying..."));
-		GetWorldTimerManager().SetTimerForNextTick(this, &AAuraCharacter::InitAbilityActorInfo);
-		return;
-	}
-
-	AbilitySystemComponent = AuraPS->GetAbilitySystemComponent();
-	AttributeSet = AuraPS->GetAttributeSet();
-
-	AbilitySystemComponent->InitAbilityActorInfo(AuraPS, this);
-
-	/*AAuraPlayerState* AuraPlayerState = GetPlayerState<AAuraPlayerState>();
+	
+	AAuraPlayerState* AuraPlayerState = GetPlayerState<AAuraPlayerState>();
 	check(AuraPlayerState);
 	AuraPlayerState->GetAbilitySystemComponent()->InitAbilityActorInfo(AuraPlayerState, this);
 	AbilitySystemComponent = AuraPlayerState->GetAbilitySystemComponent();
-	AttributeSet = AuraPlayerState->GetAttributeSet();*/
+	AttributeSet = AuraPlayerState->GetAttributeSet();
+	UE_LOG(LogTemp, Warning, TEXT("InitSuccess"));
 
+	if (AAuraPlayerController* AuraPlayerController = Cast<AAuraPlayerController>(GetController()))
+	{
+		if (AAuraHUD* AuraHUD = Cast<AAuraHUD>(AuraPlayerController->GetHUD()))
+		{
+			AuraHUD->InitOverlay(AuraPlayerController, AuraPlayerState, AbilitySystemComponent, AttributeSet);
+		}
+	}
 }
