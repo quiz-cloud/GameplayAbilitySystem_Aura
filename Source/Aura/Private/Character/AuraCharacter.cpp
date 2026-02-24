@@ -28,6 +28,7 @@ void AAuraCharacter::PossessedBy(AController* NewController)
 	if (GetPlayerState<AAuraPlayerState>())
 	{
 		InitAbilityActorInfo();
+		AddCharacterAbilities();
 	}
 	
 }
