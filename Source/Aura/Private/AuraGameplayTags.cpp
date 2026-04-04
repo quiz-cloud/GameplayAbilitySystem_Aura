@@ -8,7 +8,6 @@ FAuraGameplayTags FAuraGameplayTags::GameplayTags;
 
 void FAuraGameplayTags::InitializeNativeGameplayTags()
 {
-
 	/*
 	 * Primary Attributes
 	 */

@@ -7,6 +7,7 @@
 #include"UI/HUD/AuraHUD.h"
 #include"AbilitySystem/AuraAbilitySystemComponent.h"
 #include "GameFrameWork/CharacterMovementComponent.h"
+#include <Runtime/AIModule/Classes/Blueprint/AIBlueprintHelperLibrary.h>
 
 AAuraCharacter::AAuraCharacter()
 {
@@ -72,6 +73,5 @@ void AAuraCharacter::InitAbilityActorInfo()
 			AuraHUD->InitOverlay(AuraPlayerController, AuraPlayerState, AbilitySystemComponent, AttributeSet);
 		}
 	}
-
 	InitializeDefaultAttributes();
 }
