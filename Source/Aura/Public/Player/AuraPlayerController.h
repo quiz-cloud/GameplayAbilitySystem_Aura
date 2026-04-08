@@ -50,6 +50,7 @@ private:
 
 	IEnemyInterface* ThisActor;
 	IEnemyInterface* LastActor;
+	FHitResult CursorHit;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Input")
 	TObjectPtr<UAuraInputConfig> InputConfig;
@@ -70,4 +71,6 @@ private:
 
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<USplineComponent> Spline;
+
+	void AutoRunning();
 };
