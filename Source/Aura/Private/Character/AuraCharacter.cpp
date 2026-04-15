@@ -25,7 +25,6 @@ AAuraCharacter::AAuraCharacter()
 void AAuraCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
-	UE_LOG(LogTemp, Warning, TEXT("Serve"));
 	if (GetPlayerState<AAuraPlayerState>())
 	{
 		InitAbilityActorInfo();
@@ -38,7 +37,6 @@ void AAuraCharacter::PossessedBy(AController* NewController)
 void AAuraCharacter::OnRep_PlayerState()
 {
 	Super::OnRep_PlayerState();
-	UE_LOG(LogTemp, Warning, TEXT("Client"));
 	if (GetPlayerState<AAuraPlayerState>())
 	{
 		InitAbilityActorInfo();
@@ -64,7 +62,6 @@ void AAuraCharacter::InitAbilityActorInfo()
 
 	AbilitySystemComponent = AuraPlayerState->GetAbilitySystemComponent();
 	AttributeSet = AuraPlayerState->GetAttributeSet();
-	UE_LOG(LogTemp, Warning, TEXT("InitSuccess"));
 
 	if (AAuraPlayerController* AuraPlayerController = Cast<AAuraPlayerController>(GetController()))
 	{

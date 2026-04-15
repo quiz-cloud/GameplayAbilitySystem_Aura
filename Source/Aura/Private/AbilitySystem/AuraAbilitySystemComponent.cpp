@@ -55,7 +55,6 @@ void UAuraAbilitySystemComponent::ClientEffectApplied_Implementation(UAbilitySys
 {
 	FGameplayTagContainer TagContainer;
 	EffectSpec.GetAllAssetTags(TagContainer);
-	UE_LOG(LogTemp, Warning, TEXT("ClientEffectApplied | Authority=%d | NetMode=%d"), GetOwner()->HasAuthority(), (int32)GetNetMode());
 	EffectAssetTags.Broadcast(TagContainer);
 
 }

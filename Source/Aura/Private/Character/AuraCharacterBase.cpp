@@ -26,6 +26,11 @@ void AAuraCharacterBase::BeginPlay()
 	
 }
 
+FVector AAuraCharacterBase::GetCombatSocketLocation()
+{
+	return Weapon->GetSocketLocation(WeaponTipSocketName);
+}
+
 void AAuraCharacterBase::InitAbilityActorInfo() {
 
 }
@@ -50,7 +55,7 @@ void AAuraCharacterBase::InitializeDefaultAttributes() const
 void AAuraCharacterBase::AddCharacterAbilities()
 {
 	UAuraAbilitySystemComponent* AuraASC = CastChecked<UAuraAbilitySystemComponent>(AbilitySystemComponent);
-	//Ö»ÄÜÔÚServeÖÐAddAbility
+	//Ö»ï¿½ï¿½ï¿½ï¿½Serveï¿½ï¿½AddAbility
 	if (!HasAuthority()) return;
 
 	AuraASC->AddCharacterAbilities(StartUpAbilities);
