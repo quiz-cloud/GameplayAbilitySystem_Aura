@@ -13,6 +13,13 @@ void UAuraProjectileSpellAbility::ActivateAbility(const FGameplayAbilitySpecHand
 	
 	if (!HasAuthority(&ActivationInfo)) return;
 	
+}
+
+void UAuraProjectileSpellAbility::SpawnProjectile()
+{
+	bool const bIsServer = GetAvatarActorFromActorInfo()->HasAuthority();
+	if (!bIsServer) return;
+	
 	ICombatInterface* CombatInterface=Cast<ICombatInterface>(GetAvatarActorFromActorInfo());
 	if (CombatInterface)
 	{
@@ -29,7 +36,4 @@ void UAuraProjectileSpellAbility::ActivateAbility(const FGameplayAbilitySpecHand
 		//TODO: Give a GameplayEffect Spec to Projectile.
 		Projectile->FinishSpawning(SpawnTransform);
 	}
-	
-	
-	
 }
