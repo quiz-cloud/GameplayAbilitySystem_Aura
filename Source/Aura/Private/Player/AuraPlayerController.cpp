@@ -85,7 +85,7 @@ void AAuraPlayerController::AbilityInputReleased(FGameplayTag InputTag)
 		}
 	}
 
-	if (bTargeting)
+	if (bTargeting || bIsShiftPressed)
 	{
 		if (GetASC()) {
 			GetASC()->AbilityInputReleased(InputTag);
@@ -122,7 +122,7 @@ void AAuraPlayerController::AbilityInputHeld(FGameplayTag InputTag)
 		}
 	}
 	
-	if (bTargeting)
+	if (bTargeting || bIsShiftPressed)
 	{
 		if (GetASC()) 
 		{
@@ -184,7 +184,19 @@ void AAuraPlayerController::SetupInputComponent()
 
 	UAuraInputComponent* AuraInputComponent = CastChecked<UAuraInputComponent>(InputComponent);
 	AuraInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AAuraPlayerController::Move);
+	AuraInputComponent->BindAction(ShiftAction, ETriggerEvent::Started, this, &AAuraPlayerController::ShiftPressed);
+	AuraInputComponent->BindAction(ShiftAction, ETriggerEvent::Completed, this, &AAuraPlayerController::ShiftReleased);
 	AuraInputComponent->BindAbilityActions(InputConfig, this, &ThisClass::AbilityInputPressed, &ThisClass::AbilityInputReleased, &ThisClass::AbilityInputHeld);
+}
+
+void AAuraPlayerController::ShiftPressed()
+{
+	bIsShiftPressed = true;
+}
+
+void AAuraPlayerController::ShiftReleased()
+{
+	bIsShiftPressed = false;
 }
 
 void AAuraPlayerController::Move(const FInputActionValue& InputActionValue)
