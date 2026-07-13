@@ -3,11 +3,14 @@
 
 #include "Actor/AuraActorProjectile.h"
 
+#include "AbilitySystemBlueprintLibrary.h"
+#include "AbilitySystemComponent.h"
 #include "NiagaraFunctionLibrary.h"
 #include "Components/AudioComponent.h"
 #include "Components/SphereComponent.h"
 #include"GameFramework/ProjectileMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
+#include "Aura/Aura.h"
 
 // Sets default values
 AAuraActorProjectile::AAuraActorProjectile()
@@ -17,6 +20,7 @@ AAuraActorProjectile::AAuraActorProjectile()
 	
 	Sphere = CreateDefaultSubobject<USphereComponent>("Shpere");
 	SetRootComponent(Sphere);
+	Sphere->SetCollisionObjectType(ECC_Projectile);
 	Sphere->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
 	Sphere->SetCollisionResponseToAllChannels(ECR_Ignore);
 	Sphere->SetCollisionResponseToChannel(ECC_Pawn, ECR_Overlap);
@@ -46,6 +50,11 @@ void AAuraActorProjectile::OnSphereOverlap(UPrimitiveComponent* OverlappedCompon
 	
 	if (HasAuthority())
 	{
+		if(UAbilitySystemComponent* TargetASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(OtherActor))
+		{
+			TargetASC->ApplyGameplayEffectSpecToSelf(*DamageEffectSpecHandle.Data.Get());
+		}
+		
 		Destroy();
 	}
 	else
