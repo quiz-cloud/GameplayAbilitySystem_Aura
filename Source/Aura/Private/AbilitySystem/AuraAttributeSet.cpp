@@ -11,7 +11,7 @@
 UAuraAttributeSet::UAuraAttributeSet()
 {
 	FAuraGameplayTags GameplayTags = FAuraGameplayTags::Get();
-
+    
 	/*Primary Attributes*/
 	TagsToAttributes.Add(GameplayTags.Attributes_Primary_Strength, GetStrengthAttribute);
 	TagsToAttributes.Add(GameplayTags.Attributes_Primary_Intelligence, GetIntelligenceAttribute);
