@@ -22,7 +22,7 @@ struct FCharacterClassDefaultInfo
 	GENERATED_BODY()
 public:
 	UPROPERTY(EditDefaultsOnly, Category = "Class Default")
-	TSubclassOf<UGameplayEffect> PrimaryAttribute;
+	TSubclassOf<UGameplayEffect> PrimaryAttributeGE;
 };
 
 /**
@@ -37,13 +37,13 @@ class AURA_API UCharacterClassInfo : public UDataAsset
 	
 public:
 	UPROPERTY(EditDefaultsOnly, Category = "Common Class Defaults")
-	TSubclassOf<UGameplayEffect> SecondaryAttribute;
+	TSubclassOf<UGameplayEffect> SecondaryAttributeGE;
 	
 	UPROPERTY(EditDefaultsOnly, Category = "Common Class Defaults")
-	TSubclassOf<UGameplayEffect> VitalAttribute;
+	TSubclassOf<UGameplayEffect> VitalAttributeGE;
 	
 	UPROPERTY(EditDefaultsOnly, Category = "Character Class Defaults")
 	TMap<ECharacterClass, FCharacterClassDefaultInfo> CharacterClassInformation;
 	
-	FCharacterClassDefaultInfo* GetClassDefaultInfo(ECharacterClass CharacterClass);
+	FCharacterClassDefaultInfo GetClassDefaultInfo(ECharacterClass CharacterClass);
 };

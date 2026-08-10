@@ -34,7 +34,6 @@ UAuraAttributeSet::UAuraAttributeSet()
 
 }
 
-//ע�����Ը���ģʽ
 void UAuraAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);

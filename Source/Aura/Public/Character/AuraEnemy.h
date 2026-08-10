@@ -7,6 +7,7 @@
 #include"Interaction/EnemyInterface.h"
 #include"Interaction/CombatInterface.h"
 #include"UI/WidgetController/OverlayWidgetController.h"
+#include"AbilitySystem/Data/CharacterClassInfo.h"
 #include "AuraEnemy.generated.h"
 
 class UWidgetComponent;
@@ -46,4 +47,9 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Character Class Defualt")
 	int32 Level=1;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Character Class Defualt")
+	ECharacterClass CharacterClass = ECharacterClass::Warrior;
+	
+	virtual void InitializeDefaultAttributes() const override;
 };
